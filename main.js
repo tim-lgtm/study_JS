@@ -1,34 +1,69 @@
 'use strict';
 
 let money = +prompt('Ваш месячный доход?', '50000');
+let income = 'фриланс';
 let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
 let deposit = confirm('Есть ли у вас депозит в банке ?');
-let expenses1 = prompt('Введите обязательную статью расходов');
-let amounth1 = +prompt('Во сколько это обойдётся?')
-let expenses2 = prompt('Введите ещё одну обязательную статью расходов');
-let amounth2 = +prompt('Во сколько это обойдётся?')
-let budgetMonth = money - amounth1 - amounth2;
-let mession = 100000;
-let period = 12;
-let budgetDay = Math.floor(budgetMonth / 30);
 
-console.log( typeof (money) );
-console.log( typeof (deposit) );
-console.log( addExpenses.length );
-console.log( 'Период равен ' + period + ' месяцев' );
-console.log( 'Цель заработать ' + mession + ' рублей' );
+let showTypeOF = function(data){
+    console.log(data, typeof(data));
+}
+
+showTypeOF(money);
+showTypeOF(income);
+showTypeOF(deposit);
+
+
 console.log( addExpenses.split(', ' ) );
 console.log( addExpenses.toLocaleLowerCase() );
-console.log( 'Бюджет на месяц: ' + budgetMonth );
-console.log( 'Цель будет достигнута за - ' + Math.ceil(mession / budgetMonth) );
+console.log( addExpenses.length );
+
+
+
+let expenses1 = prompt('Введите обязательную статью расходов', 'Курсы ');
+let amounth1 = +prompt('Во сколько это обойдётся?', '5000')
+let expenses2 = prompt('Введите ещё одну обязательную статью расходов', 'Книги');
+let amounth2 = +prompt('Во сколько это обойдётся?', '2000')
+function getExpensesMonth(a, b){
+    return a + b;
+}
+console.log( 'Обязательные расходы на месяц составят ' + getExpensesMonth(amounth1, amounth2));
+
+let mession = 100000;
+console.log( 'Цель заработать ' + mession + ' рублей' );
+
+//вот тут сразу вопрос, можно-ли сделать это через callback функицию? 
+function getAccumulatedMonth(a, b, c  ){
+    return a - b - c;
+}
+let accumulatedMonth = getAccumulatedMonth(money ,amounth1 , amounth2)
+console.log('Накопления за месяц ' + accumulatedMonth);
+
+let period = 12;
+console.log( 'Период равен ' + period + ' месяцев' );
+
+function getTargetMonth(a, b){
+    return Math.ceil(a / b); 
+}
+console.log( 'Чтобы накопить,  вам потребуется: ' + getTargetMonth(mession, accumulatedMonth ) + ' месяцев');
+
+let budgetDay = Math.floor(accumulatedMonth / 30);
 console.log('Бюджет на день: ' + budgetDay );
 
-if(budgetDay >= 1200 ){
-    console.log( 'У вас высокий уровень дохода' );
-} else if( 1200 > budgetDay && budgetDay >= 600 ){
-    console.log( 'У вас средний уровень дохода ' );
-} else if( budgetDay < 600 && budgetDay > 0) {
-    console.log( 'К сожалению у вас уровень дохода ниже среднего');
-}else if( budgetDay <= 0 ) {
-    console.log( 'Что то пошло не так' );
-}
+
+let getStatusIncome = function(){
+    if(budgetDay >= 1200 ){
+        return( 'У вас высокий уровень дохода' );
+    } else if( 1200 > budgetDay && budgetDay >= 600 ){
+        return( 'У вас средний уровень дохода ' );
+    } else if( budgetDay < 600 && budgetDay > 0) {
+        return( 'К сожалению у вас уровень дохода ниже среднего');
+    }else if( budgetDay <= 0 ) {
+        return( 'Что то пошло не так' );
+    }
+};
+console.log(getStatusIncome());
+
+
+
+
