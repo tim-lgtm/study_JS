@@ -24,8 +24,8 @@ let expenses1 = prompt('Введите обязательную статью р�
 let amounth1 = +prompt('Во сколько это обойдётся?', '5000')
 let expenses2 = prompt('Введите ещё одну обязательную статью расходов', 'Книги');
 let amounth2 = +prompt('Во сколько это обойдётся?', '2000')
-function getExpensesMonth(a, b){
-    return a + b;
+function getExpensesMonth(amounth1, amounth2){
+    return amounth1 + amounth2;
 }
 console.log( 'Обязательные расходы на месяц составят ' + getExpensesMonth(amounth1, amounth2));
 
@@ -33,17 +33,17 @@ let mession = 100000;
 console.log( 'Цель заработать ' + mession + ' рублей' );
 
 //вот тут сразу вопрос, можно-ли сделать это через callback функицию? 
-function getAccumulatedMonth(a, b, c  ){
-    return a - b - c;
+function getAccumulatedMonth(money, amounth1, amounth2  ){
+    return money - amounth1 - amounth2;
 }
-let accumulatedMonth = getAccumulatedMonth(money ,amounth1 , amounth2)
+let accumulatedMonth = getAccumulatedMonth(money, amounth1, amounth2)
 console.log('Накопления за месяц ' + accumulatedMonth);
 
 let period = 12;
 console.log( 'Период равен ' + period + ' месяцев' );
 
-function getTargetMonth(a, b){
-    return Math.ceil(a / b); 
+function getTargetMonth(mession, accumulatedMonth){
+    return Math.ceil(mession / accumulatedMonth); 
 }
 console.log( 'Чтобы накопить,  вам потребуется: ' + getTargetMonth(mession, accumulatedMonth ) + ' месяцев');
 
