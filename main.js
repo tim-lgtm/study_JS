@@ -1,4 +1,7 @@
 'use strict';
+let isNumber = function (n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+};
 
 let money;
 let income = 'фриланс';
@@ -30,24 +33,27 @@ console.log( addExpenses.length );
 
 
 
-let expenses1 = prompt('Введите обязательную статью расходов', 'Курсы ');
-let amounth1; 
-let expenses2 = prompt('Введите ещё одну обязательную статью расходов', 'Книги');
-let amounth2;
+let expenses  = [];
 
 
-function getExpensesMonth(amounth1, amounth2){
-    do{
-        amounth1 = +prompt('Во сколько обойдётся?', '5000');
-        amounth2 = +prompt('Во сколько это обойдётся?', '2000');
-    }while(isNaN(parseFloat(amounth1, amounth2)));
-        console.log(amounth1);
-        return amounth1 + amounth2;
-}
+function getExpensesMonth(){
+    let sum = 0;
+    let quest;
+    for (let i = 0; i < 2; i++) {
+      expenses[i] = prompt('Введите обязательную статью расходов?', '');
+      do {
+        quest= prompt('Во сколько это обойдется?', '');
+      } while (!isNumber(quest));
+      sum += +quest;
+    }
+    return sum;
+  };
+
+
 let expensesAmount = getExpensesMonth()
 console.log( 'Обязательные расходы на месяц составят ' + expensesAmount);
 
-let mession = -100000;
+let mession = 100000;
 console.log( 'Цель заработать ' + mession + ' рублей' );
 
 //вот тут сразу вопрос, можно-ли сделать это через callback функицию? 
