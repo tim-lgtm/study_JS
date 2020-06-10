@@ -1,5 +1,10 @@
 'use strict';
 
+let isNumber = function (n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+};
+
+
 let money;
 let income = 'фриланс';
 let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
@@ -12,10 +17,7 @@ let showTypeOF = function(data){
 function start(){
     do{
         money = +prompt('Ваш месячный доход?', '50000');
-    } while(isNaN(parseFloat(money))){
-
-        return money; 
-    }
+    } while(!isNumber(money));
 };
 start();
 
