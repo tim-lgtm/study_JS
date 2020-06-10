@@ -60,7 +60,7 @@ console.log( 'Цель заработать ' + mession + ' рублей' );
 function getAccumulatedMonth(money, expensesAmount){
     return money - expensesAmount;
 }
-let accumulatedMonth = getAccumulatedMonth(start(), expensesAmount );
+let accumulatedMonth = getAccumulatedMonth(money, expensesAmount );
 console.log('Накопления за месяц ' + accumulatedMonth);
 
 let period = 12;
