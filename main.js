@@ -1,10 +1,5 @@
 'use strict';
 
-let isNumber = function (n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-};
-
-
 let money;
 let income = 'фриланс';
 let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
@@ -17,7 +12,10 @@ let showTypeOF = function(data){
 function start(){
     do{
         money = +prompt('Ваш месячный доход?', '50000');
-    } while(!isNumber(money));
+    } while(isNaN(parseFloat(money))){
+
+        return money; 
+    }
 };
 start();
 
@@ -49,7 +47,7 @@ function getExpensesMonth(amounth1, amounth2){
 let expensesAmount = getExpensesMonth()
 console.log( 'Обязательные расходы на месяц составят ' + expensesAmount);
 
-let mession = 100000;
+let mession = -100000;
 console.log( 'Цель заработать ' + mession + ' рублей' );
 
 //вот тут сразу вопрос, можно-ли сделать это через callback функицию? 
