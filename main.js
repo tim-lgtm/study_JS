@@ -1,5 +1,9 @@
 'use strict';
 
+let isNumber = function (n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+};
+
 let money;
 
 function start(){
@@ -13,7 +17,8 @@ function start(){
 
 start();
 
-let appDate = {
+let appData = {
+    budget: money,
     income: {},
     addIncome: [],
     expenses: {},
@@ -23,29 +28,35 @@ let appDate = {
     period: 12,
     asking: function(){
         let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-            appDate.addExpenses = addExpenses.toLowerCase().split(',');
-            appDate.deposit = confirm('Есть ли у вас депозит в банке ?');
+            appData.addExpenses = addExpenses.toLowerCase().split(',');
+            appData.deposit = confirm('Есть ли у вас депозит в банке ?');
+            let key = [];
+            for (let i = 0; i < 2; i++) {
+                let sum = 0; 
+                key[i] = prompt('Введите обязательную статью расходов?');
+                do{
+                    sum = prompt('Во сколько это обайдётся ? ')
+                }while(!isNumber(sum))
+                appData.expenses[key[i]] = +sum;
+            }
+            
+            
     },
     budgetDay: 0,
     budgetMonth: 0,
     expensesMonth: 0,
     getExpensesMonth: function (){
-        let sum = 0;
-        let quest;
-        for (let i = 0; i < 2; i++) {
-          expenses[i] = prompt('Введите обязательную статью расходов?', '');
-          do {
-            quest= prompt('Во сколько это обойдется?', '');
-          } while (!isNumber(quest));
-          sum += +quest;
-        }
-        return sum;
+       for(let key in appData.expenses) {
+        appData.expensesMonth += appData.expenses[key];
+        }  
+
       },
-    getAccumulatedMonth: function (money, expensesAmount){
-        return money - expensesAmount;
+      getBudget: function (){
+        appData.budgetMonth = appData.budget - appData.expensesMonth;
+        appData.budgetDay = appData.expensesMonth / 30 ;
     },
-    getTargetMonth: function (mession, accumulatedMonth){
-        let result = Math.ceil(mession / accumulatedMonth);
+    getTargetMonth: function (){
+        let result = Math.ceil(appData.mession / appData.budgetMonth);
         if(result > 0){
             console.log('Цель будет достигнута за: ' + result + ' месяцев');
         } else{
@@ -53,75 +64,52 @@ let appDate = {
         } 
     },
     getStatusIncome: function(){
-        if(budgetDay >= 1200 ){
+        if(appData.budgetDay >= 1200 ){
             return( 'У вас высокий уровень дохода' );
-        } else if( 1200 > budgetDay && budgetDay >= 600 ){
+        } else if( 1200 > appData.budgetDay && appData.budgetDay >= 600 ){
             return( 'У вас средний уровень дохода ' );
-        } else if( budgetDay < 600 && budgetDay > 0) {
+        } else if( appData.budgetDay < 600 && appData.budgetDay > 0) {
             return( 'К сожалению у вас уровень дохода ниже среднего');
-        }else if( budgetDay <= 0 ) {
+        }else if( appData.budgetDay <= 0 ) {
             return( 'Что то пошло не так' );
         }
     }
 }
-// console.log(appDate);
-appDate.budget = money;
-
-appDate.asking();
-
-let isNumber = function (n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-};
-
-let income = 'фриланс';
-// let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-// let deposit = confirm('Есть ли у вас депозит в банке ?');
-
-// let showTypeOF = function(data){
-//     console.log(data, typeof(data));
-// }
 
 
 
-// showTypeOF(money);
-// showTypeOF(appDate.income);
-// showTypeOF(appDate.deposit);
+
+// вызов фунций 
+appData.asking();
+appData.getExpensesMonth();
+appData.getBudget();
+appData.getTargetMonth();
+appData.getStatusIncome();
 
 
-
-console.log(appDate.addExpenses);
-
-
-
-let expenses  = []; // ??????????????
+// вывод в консоль 
+console.log(`Расходы за месяц составляют: ${appData.expensesMonth}`);
+console.log('Период равен ' + appData.period + ' месяцев' );
+console.log(appData.getStatusIncome());
+console.log(appData.addExpenses);
 
 
 
 
 
-let expensesAmount = appDate.getExpensesMonth()
-console.log( 'Обязательные расходы на месяц составят ' + expensesAmount);
-
-let mession = 100000;
-console.log( 'Цель заработать ' + mession + ' рублей' );
-
-//вот тут сразу вопрос, можно-ли сделать это через callback функицию? 
-
-let accumulatedMonth = appDate.getAccumulatedMonth(money, expensesAmount );
-console.log('Накопления за месяц ' + accumulatedMonth);
-
-let period = 12;
-console.log( 'Период равен ' + period + ' месяцев' );
-
-
-appDate.getTargetMonth(mession, accumulatedMonth);
-
-let budgetDay = Math.floor(accumulatedMonth / 30);
-console.log('Бюджет на день: ' + budgetDay );
 
 
 
-console.log(appDate.getStatusIncome());
+
+
+
+
+
+
+
+
+
+
 
 
 
