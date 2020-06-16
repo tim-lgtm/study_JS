@@ -4,6 +4,8 @@ let isNumber = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
+
+
 let money;
 
 function start(){
@@ -16,7 +18,7 @@ function start(){
 }
 
 start();
-
+// debugger
 let appData = {
     budget: money,
     income: {},
@@ -24,9 +26,21 @@ let appData = {
     expenses: {},
     addExpenses: [],
     deposit: false,
+    parcenetDeposit: 0,
+    moneyDeposit: 0,
     mession: 50000,
     period: 12,
     asking: function(){
+
+        if(confirm('Есть ли у Вас дополнительный источник дохода?')){
+            let itemIncome = prompt('Какой у вас дополнительный зарабаток?', 'фриланс');
+
+            let cashIncome = prompt('Сколько Вы на этом зарабатываете?', 10000);
+
+            appData.income[itemIncome] = cashIncome;
+        }
+        
+
         let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
             appData.addExpenses = addExpenses.toLowerCase().split(',');
             appData.deposit = confirm('Есть ли у вас депозит в банке ?');
@@ -51,7 +65,7 @@ let appData = {
         }  
 
       },
-      getBudget: function (){
+    getBudget: function (){
         appData.budgetMonth = appData.budget - appData.expensesMonth;
         appData.budgetDay = appData.expensesMonth / 30 ;
     },
@@ -73,9 +87,26 @@ let appData = {
         }else if( appData.budgetDay <= 0 ) {
             return( 'Что то пошло не так' );
         }
-    }
-}
+    }, 
+    getInfoDeposit: () =>{
+        appData.parcenetDeposit = prompt('Какая у Вас процентная ставка?' , '10');
 
+        appData.moneyDeposit = prompt('Какая сумма у Вас на депозите?' , 30000)
+    },
+    calcSavedMoney: () =>{
+        return appData.parcenetDeposit * appData.moneyDeposit;
+    },
+    getDataFromArray: data =>{
+      let  arr = []
+
+      for(let i = 0 ; i < data.length; i++){
+        arr = data[i].charAt(0).toUpperCase() + data[i].slice(1);
+
+        console.log(arr);
+
+      }
+    }
+};
 
 
 
@@ -92,6 +123,7 @@ console.log(`Расходы за месяц составляют: ${appData.expe
 console.log('Период равен ' + appData.period + ' месяцев' );
 console.log(appData.getStatusIncome());
 console.log(appData.addExpenses);
+appData.getDataFromArray(appData.addExpenses);
 
 
 
