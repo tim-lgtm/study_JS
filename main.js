@@ -1,9 +1,12 @@
 'use strict';
-
 let isNumber = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
+let isText = (str) =>{
+    let pattern = new RegExp ('[^а-яё\S]', 'gi');
+    return str.match(pattern);
+}
 
 
 let money;
@@ -33,9 +36,16 @@ let appData = {
     asking: function(){
 
         if(confirm('Есть ли у Вас дополнительный источник дохода?')){
-            let itemIncome = prompt('Какой у вас дополнительный зарабаток?', 'фриланс');
+            let itemIncome;
+            do{
+                itemIncome = prompt('Какой у вас дополнительный зарабаток?', 'фриланс');
+            }while(isText(itemIncome));
 
-            let cashIncome = prompt('Сколько Вы на этом зарабатываете?', 10000);
+
+            let cashIncome;
+            do{
+                cashIncome =   prompt('Сколько Вы на этом зарабатываете?', 10000);
+            }while(!isNumber(cashIncome))
 
             appData.income[itemIncome] = cashIncome;
         }
@@ -47,9 +57,11 @@ let appData = {
             let key = [];
             for (let i = 0; i < 2; i++) {
                 let sum = 0; 
-                key[i] = prompt('Введите обязательную статью расходов?');
                 do{
-                    sum = prompt('Во сколько это обайдётся ? ')
+                    key[i] = prompt('Введите обязательную статью расходов?');
+                }while(isText(key[i]));
+                do{
+                    sum = prompt('Во сколько это обайдётся ? ');
                 }while(!isNumber(sum))
                 appData.expenses[key[i]] = +sum;
             }
@@ -67,7 +79,7 @@ let appData = {
       },
     getBudget: function (){
         appData.budgetMonth = appData.budget - appData.expensesMonth;
-        appData.budgetDay = appData.expensesMonth / 30 ;
+        appData.budgetDay = appData.budgetMonth / 30 ;
     },
     getTargetMonth: function (){
         let result = Math.ceil(appData.mession / appData.budgetMonth);
@@ -89,22 +101,23 @@ let appData = {
         }
     }, 
     getInfoDeposit: () =>{
-        appData.parcenetDeposit = prompt('Какая у Вас процентная ставка?' , '10');
-
-        appData.moneyDeposit = prompt('Какая сумма у Вас на депозите?' , 30000)
+        do{
+            appData.parcenetDeposit = prompt('Какая у Вас процентная ставка?' , '10');
+        }while(!isNumber(appData.parcenetDeposit))
+        do{
+            appData.moneyDeposit = prompt('Какая сумма у Вас на депозите?' , 30000);
+        }while(!isNumber(appData.moneyDeposit));
     },
     calcSavedMoney: () =>{
         return appData.parcenetDeposit * appData.moneyDeposit;
     },
-    getDataFromArray: data =>{
-      let  arr = []
-
-      for(let i = 0 ; i < data.length; i++){
-        arr = data[i].charAt(0).toUpperCase() + data[i].slice(1);
-
-        console.log(arr);
+    getDataFromArray: () =>{
+    let  arr = appData.addExpensess;
+      for(let i = 0 ; i < arr.length; i++){
+        appData.addExpenses.push(arr[i].trim()[0].toUpperCase() + arr[i].trim().slice(1).toLowerCase());
 
       }
+        console.log(appData.addExpenses.join(', '));
     }
 };
 
@@ -115,7 +128,8 @@ appData.asking();
 appData.getExpensesMonth();
 appData.getBudget();
 appData.getTargetMonth();
-appData.getStatusIncome();
+appData.getInfoDeposit();
+appData.getDataFromArray();
 
 
 // вывод в консоль 
@@ -123,7 +137,7 @@ console.log(`Расходы за месяц составляют: ${appData.expe
 console.log('Период равен ' + appData.period + ' месяцев' );
 console.log(appData.getStatusIncome());
 console.log(appData.addExpenses);
-appData.getDataFromArray(appData.addExpenses);
+// appData.getDataFromArray(appData.addExpenses);
 
 
 
