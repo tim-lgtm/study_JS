@@ -51,7 +51,7 @@ let appData = {
         }
         
 
-        let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+        let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'машина,  квартира');
             appData.addExpenses = addExpenses.toLowerCase().split(',');
             appData.deposit = confirm('Есть ли у вас депозит в банке ?');
             let key = [];
@@ -112,12 +112,12 @@ let appData = {
         return appData.parcenetDeposit * appData.moneyDeposit;
     },
     getDataFromArray: () =>{
-    let  arr = appData.addExpensess;
-      for(let i = 0 ; i < arr.length; i++){
-        appData.addExpenses.push(arr[i].trim()[0].toUpperCase() + arr[i].trim().slice(1).toLowerCase());
+    let arr = [];
+      for(let i = 0 ; i < appData.addExpenses.length ; i++){
+        arr.push(appData.addExpenses[i].trim()[0].toUpperCase() + appData.addExpenses[i].trim().slice(1).toLowerCase());
 
       }
-        console.log(appData.addExpenses.join(', '));
+        console.log(arr.join(', '));
     }
 };
 
