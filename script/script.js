@@ -19,7 +19,7 @@ let additionalExpensesValue = document.getElementsByClassName('additional_expens
 console.log('additionalExpensesValue: ', additionalExpensesValue);
 
 let resultIncomePeriod = document.getElementsByClassName('income_period-value')[0];
-console.log('resultIncomePeriod: ', resultIncomePeriod );
+console.log('resultIncomePeriod: ', resultIncomePeriod);
 
 let resultTargetMonth = document.querySelector('.target_month-value');
 console.log('resultTargetMonth: ', resultTargetMonth);
@@ -31,14 +31,14 @@ let salaryAmount = document.querySelector('.salary-amount');
 console.log('salaryAmount: ', salaryAmount);
 
 // дполнителный доход
-let incomeTitle = document.getElementsByClassName('income-title')[1]; 
+let incomeTitle = document.getElementsByClassName('income-title')[1];
 console.log('incomeTitle: ', incomeTitle);
 
 let incomeAmount = document.querySelector('.income-amount')
-console.log(' incomeAmount: ',  incomeAmount);
+console.log(' incomeAmount: ', incomeAmount);
 
-let  btnPlusIncomeAdd = document.getElementsByTagName('button')[0];
-console.log('btnPlusIncomeAdd: ',btnPlusIncomeAdd);
+let btnPlusIncomeAdd = document.getElementsByTagName('button')[0];
+console.log('btnPlusIncomeAdd: ', btnPlusIncomeAdd);
 
 
 // возможный доход
@@ -53,8 +53,8 @@ console.log('additionalIncomeItemTwo: ', additionalIncomeItemTwo);
 let expensesAmount = document.querySelector('.expenses-amount');
 console.log('expensesAmount: ', expensesAmount);
 
-let  btnPlusExpensesAdd = document.getElementsByTagName('button')[1];
-console.log('btnPlusExpensesAddd: ',btnPlusExpensesAdd);
+let btnPlusExpensesAdd = document.getElementsByTagName('button')[1];
+console.log('btnPlusExpensesAddd: ', btnPlusExpensesAdd);
 
 // возможные расходы
 let tadditionalExpensesItem = document.querySelector('.additional_expenses-item');
