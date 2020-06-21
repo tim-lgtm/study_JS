@@ -30,7 +30,8 @@ let additionalIncomeItemTwo = document.querySelector('.additional_income-item')[
 let expensesAmount = document.querySelector('.expenses-amount');
 let btnPlusExpensesAdd = document.getElementsByTagName('button')[1];
 // возможные расходы
-let tadditionalExpensesItem = document.querySelector('.additional_expenses-item');
+let additionalExpensesItem = document.querySelector('.additional_expenses-item');
+console.log('additionalExpensesItem: ', additionalExpensesItem);
 // депозит
 let depositCheck = document.querySelector('#deposit-check');
 let targetAmount = document.querySelector('.target-amount')
@@ -75,10 +76,12 @@ let appData = {
 
 
         
-        appData.getExpensesMonth();
-        appData.getBudget();
-        appData.getExpenses();
-        appData.showResult();
+      appData.getBudget();
+      appData.getExpenses();
+      appData.getExpensesMonth();
+      appData.getAddExpenses();
+      appData.getAddIncome();
+      appData.showResult();
   },
     addExpensesBlock: function(){
 
@@ -103,7 +106,23 @@ let appData = {
         budgetMonthValue.value = appData.budgetMonth;
         budgetDayValue.value = appData.budgetDay;
         expensesMonthValue.value =  appData.expensesMonth;
-
+        additionalExpensesValue.value = appData.addExpenses.join(', ');
+        additionalIncomeValue.value = appData.addIncome.join(',');
+    },
+    getAddExpenses: function(){
+        let addExpenses = additionalExpensesItem.value.split(',');
+        console.log('addExpenses: ', addExpenses);
+        addExpenses.forEach(function(item){
+            item = item.trim();
+            if(item !== ''){
+                appData.addExpenses.push(item);
+            }
+        })
+    },
+    getAddIncome: function(){
+        additionalExpensesItem.forEach(function(item){
+            console.log('привет');
+        });
     },
     asking: function(){
 
