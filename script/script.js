@@ -1,9 +1,13 @@
 let start = document.getElementById('start');
 let checkbox = document.querySelector('#deposit-check');
 let budgetDayValue = document.getElementsByClassName('budget_day-value')[0];
+let budgetMonthValue = document.getElementsByClassName('budget_month-value')[0];
 
 // вывод с парвой сторон инпутов 
 let expensesMonthValue = document.getElementsByClassName('expenses_month-value')[0];
+
+ 
+
 let additionalIncomeValue = document.getElementsByClassName('additional_income-value')[0];
 let additionalExpensesValue = document.getElementsByClassName('additional_expenses-value')[0];
 let resultIncomePeriod = document.getElementsByClassName('income_period-value')[0];
@@ -17,6 +21,8 @@ let salaryAmount = document.querySelector('.salary-amount');
 let incomeTitle = document.getElementsByClassName('income-title')[1];
 let expensesItems = document.querySelectorAll('.expenses-items');
 let btnPlusIncomeAdd = document.getElementsByTagName('button')[0];
+
+
 // возможный доход
 let additionalIncomeItem = document.getElementsByClassName('additional_income-item')[0];
 let additionalIncomeItemTwo = document.querySelector('.additional_income-item')[1];
@@ -64,23 +70,40 @@ let appData = {
         return;
       }
       appData.budget = salaryAmount.value;
-      console.log('salaryAmount.value: ', salaryAmount.value);
+ 
       
 
 
-        // appData.asking();
-        // appData.getExpensesMonth();
-        // appData.getBudget();
         
+        appData.getExpensesMonth();
+        appData.getBudget();
+        appData.getExpenses();
+        appData.showResult();
   },
     addExpensesBlock: function(){
 
       let cloneExpensesItems = expensesItems[0].cloneNode(true);
-      expensesItems[0].parentNode.insertBefore(cloneExpensesItems, btnPlusIncomeAdd);
+      expensesItems[0].parentNode.insertBefore(cloneExpensesItems, btnPlusExpensesAdd);
       expensesItems = document.querySelectorAll('.expenses-items');
       if(expensesItems.length === 3){
-        btnPlusIncomeAdd.style.display = 'none';
+        btnPlusExpensesAdd.style.display = 'none';
       }
+    },
+    getExpenses: function(){
+        expensesItems.forEach(function(item){
+            let itemExpenses = item.querySelector('.expenses-title').value;
+            let cashExpenses = item.querySelector('.expenses-amount').value;
+            if( itemExpenses !== '' && cashExpenses !== '' ){
+                appData.expenses[itemExpenses] = cashExpenses;
+            }
+
+        });
+    },
+    showResult: function(){
+        budgetMonthValue.value = appData.budgetMonth;
+        budgetDayValue.value = appData.budgetDay;
+        expensesMonthValue.value =  appData.expensesMonth;
+
     },
     asking: function(){
 
@@ -102,27 +125,14 @@ let appData = {
 
         let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'машина,  квартира');
             appData.addExpenses = addExpenses.toLowerCase().split(',');
-            appData.deposit = confirm('Есть ли у вас депозит в банке ?');
-            let key = [];
-            for (let i = 0; i < 2; i++) {
-                let sum = 0; 
-                do{
-                    key[i] = prompt('Введите обязательную статью расходов?');
-                }while(isText(key[i]));
-                do{
-                    sum = prompt('Во сколько это обайдётся ? ');
-                }while(!isNumber(sum))
-                appData.expenses[key[i]] = +sum;
-            }
-            
-            
+            appData.deposit = confirm('Есть ли у вас депозит в банке ?');   
     },
     budgetDay: 0,
     budgetMonth: 0,
     expensesMonth: 0,
     getExpensesMonth: function (){
        for(let key in appData.expenses) {
-        appData.expensesMonth += appData.expenses[key];
+        appData.expensesMonth += +appData.expenses[key];
         }  
 
       },
@@ -171,7 +181,7 @@ let appData = {
 };
 
 start.addEventListener('click', appData.start);
-btnPlusIncomeAdd.addEventListener('click', appData.addExpensesBlock)
+btnPlusExpensesAdd.addEventListener('click', appData.addExpensesBlock);
 
 
 // вызов фунций 
