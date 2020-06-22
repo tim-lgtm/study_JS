@@ -199,7 +199,12 @@ let appData = {
     }
 };
 
-start.addEventListener('click', appData.start);
+salaryAmount.addEventListener('input', () =>{
+    start.disabled = salaryAmount.value === '';
+    start.addEventListener('click', appData.start);
+})
+
+
 btnPlusExpensesAdd.addEventListener('click', appData.addExpensesBlock);
 btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock);
 periodSelect.addEventListener('input', appData.range );
