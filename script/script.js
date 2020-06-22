@@ -1,4 +1,4 @@
-let start = document.getElementById('start');
+let start = document.querySelector('#start');
 let checkbox = document.querySelector('#deposit-check');
 let budgetDayValue = document.getElementsByClassName('budget_day-value')[0];
 let budgetMonthValue = document.getElementsByClassName('budget_month-value')[0];
@@ -10,7 +10,6 @@ let resultTargetMonth = document.querySelector('.target_month-value');
 let salaryAmount = document.querySelector('.salary-amount');
 let incomeTitle = document.getElementsByClassName('income-title')[1];
 let expensesItems = document.querySelectorAll('.expenses-items');
-console.log('expensesItems: ', expensesItems);
 let btnPlusIncomeAdd = document.getElementsByTagName('button')[0];
 let additionalIncomeItem = document.querySelectorAll('.additional_income-item');
 let expensesAmount = document.querySelector('.expenses-amount');
@@ -19,9 +18,8 @@ let additionalExpensesItem = document.querySelector('.additional_expenses-item')
 let depositCheck = document.querySelector('#deposit-check');
 let targetAmount = document.querySelector('.target-amount');
 let periodSelect = document.querySelector('.period-select');
-console.log('periodSelect: ', periodSelect);
 let incomeItems = document.querySelectorAll('.income-items');
-console.log('incomeItems: ', incomeItems);
+
 
 
 
@@ -55,10 +53,7 @@ let appData = {
     expensesMonth: 0,
     start: function() {
       
-        if(salaryAmount.value === ''){
-        alert('Поле "Месячный доход" должно быть заполненно');
-        return;
-    }
+    
       appData.budget = +salaryAmount.value;
  
       
@@ -199,11 +194,11 @@ let appData = {
     }
 };
 
-salaryAmount.addEventListener('input', () =>{
+start.disabled = true;
+salaryAmount.addEventListener('input', () => {
     start.disabled = salaryAmount.value === '';
-    start.addEventListener('click', appData.start);
-})
-
+});
+start.addEventListener('click', appData.start)
 
 btnPlusExpensesAdd.addEventListener('click', appData.addExpensesBlock);
 btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock);
