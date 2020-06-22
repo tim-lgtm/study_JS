@@ -137,12 +137,10 @@ let appData = {
         }
     },
     getAddIncome: function(){
-        let addIncome = additionalIncomeValue.value.split(',');
-        addIncome.forEach(function(item){
-            item = item.trim();
-            if(item !== ''){
-                console.log(addIncome);
-                appData.addIncome.push(item);
+        additionalIncomeItem.forEach(function(item){
+            let itemValue = item.value.trim();
+            if(itemValue !== ''){
+                appData.addIncome.push(itemValue)
             }
         });
     },
