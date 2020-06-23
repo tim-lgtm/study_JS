@@ -16,13 +16,14 @@ const todoData = [
         completed: true
     }
 ];
+const readToLocalStorage = JSON.parse(localStorage.getItem('todoData')) || [];
 
 const render = function(){
-    
+    console.log(readToLocalStorage);
     todoList.textContent = '';
     todoCompleted.textContent = '';
     
-    todoData.forEach(function(item){
+    readToLocalStorage.forEach(function(item){
 
 
         const li = document.createElement('li');
@@ -42,22 +43,21 @@ const render = function(){
         };
 
         const btnTodoCompete = li.querySelector('.todo-complete');
-        console.log('btnTodoCompete: ', btnTodoCompete);
 
         btnTodoCompete.addEventListener('click', function(){
             item.completed = !item.completed;
-            render()
+            render();
         });
 
         const deleteTodo = li.querySelector('.todo-remove');
-        deleteTodo.parentNode.parentNode;
-        console.log('deleteTodo: ', deleteTodo);
-        
-
         deleteTodo.addEventListener('click', function(){
+            
+        todoData.splice(todoData.indexOf(item), 1);
+    
+        render();
         
-        })
-
+    })
+    localStorage.setItem('todoData', JSON.stringify(todoData))
     });
 };
 headerButton.disabled = true
@@ -68,15 +68,24 @@ headerButton.addEventListener('click', render());
 
 todoControl.addEventListener('submit', function(event){
     event.preventDefault();
+    if(headerInput.value === ''){
+        alert('строка пустая')
+    }else{
 
-    const newTodo = {
-        value: headerInput.value,
-        completed: false
+        console.log('todoControl: ', todoControl);
+    
+        const newTodo = {
+            value: headerInput.value,
+            completed: false
+        }
+    
+        headerInput.value = '';
+    
+    
+        todoData.push(newTodo);
+        render();
     }
 
-    todoData.push(newTodo);
-
-    render();
 });
 
 render();
