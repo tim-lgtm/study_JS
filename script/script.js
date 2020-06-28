@@ -97,6 +97,9 @@ let appData = {
     items.forEach(function(item){
         item.disabled = true;
     });
+
+    btnPlusIncomeAdd.disabled = true;
+    btnPlusExpensesAdd.disabled = true;
     
     },
     reset: function() {
@@ -118,7 +121,9 @@ let appData = {
         items.forEach(function(item){
             item.disabled = false;
         }),
- 
+        
+
+
         checkbox.checked = false;
          
         
