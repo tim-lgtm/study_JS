@@ -68,21 +68,21 @@ let appData = {
     start: function() {
     //   debugger;
     
-      appData.budget = +salaryAmount.value;
+      this.budget = +salaryAmount.value;
       
 
  
       
       
       
-      appData.getExpenses();
-      appData.getExpensesMonth();
-      appData.getIncome();
-      appData.getAddExpenses();
-      appData.getAddIncome();
-      appData.range();
-      appData.getBudget();
-      appData.showResult();
+      this.getExpenses();
+      this.getExpensesMonth();
+      this.getIncome();
+      this.getAddExpenses();
+      this.getAddIncome();
+      this.range();
+      this.getBudget();
+      this.showResult();
 
 
 
@@ -93,9 +93,11 @@ let appData = {
     
     cancel.style.display = 'block';
     
+    let items = document.querySelectorAll('input[type="text"]');
     items.forEach(function(item){
         item.disabled = true;
     });
+    
     },
     reset: function() {
         cancel.style.display =  'none';
@@ -115,11 +117,14 @@ let appData = {
         
         items.forEach(function(item){
             item.disabled = false;
-        });
+        }),
+ 
+        checkbox.checked = false;
+         
         
         items.forEach(function(item){
             item.value = '';
-        });
+        }),
 
         periodSelect.value = 1;
 
@@ -130,14 +135,14 @@ let appData = {
                 item.remove();
                 btnPlusIncomeAdd.style.display = 'block';
             }
-        });
+        }),
 
         expensesItems.forEach((item, i) =>{
             if( i !== 0){
                 item.remove();
                 btnPlusExpensesAdd.style.display = 'block';
             }
-        });
+        })
 
         
     },
